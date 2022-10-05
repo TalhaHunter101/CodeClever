@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "b194b5c7-c942-4fac-a590-56f7650c6b41",
+		"name": "codeClever",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "alpha@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"user",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "alpha@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "abc123",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "talha Shafeeq",
+							"type": "default"
+						},
+						{
+							"key": "email",
+							"value": "alpha@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getexcursion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "city",
+							"value": "Larkana",
+							"type": "default",
+							"disabled": true
+						},
+						{
+							"key": "lat",
+							"value": "24.675965",
+							"type": "default"
+						},
+						{
+							"key": "lng",
+							"value": "123.6757",
+							"type": "default"
+						},
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhQGdtYWlsLmNvbSIsImlhdCI6MTY2NDk2NTkwMywiZXhwIjoxNjY0OTgzOTAzfQ.Pa7zA5gyx3S4VxkoVQFFIOLATQoalLSlWO8TQIHMUbE",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/excursion/getexcursion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"excursion",
+						"getexcursion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createexcursion",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhMTIzQGdtYWlsLmNvbSIsImlhdCI6MTY2NDk0ODk1NywiZXhwIjoxNjY0OTY2OTU3fQ.wGfK7-tMzbOLqLobapoWUfWLm1I2kNB7suFfDnx8Fmw",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhQGdtYWlsLmNvbSIsImlhdCI6MTY2NDk2NTkwMywiZXhwIjoxNjY0OTgzOTAzfQ.Pa7zA5gyx3S4VxkoVQFFIOLATQoalLSlWO8TQIHMUbE",
+							"type": "default"
+						},
+						{
+							"key": "name",
+							"value": "My 3rd excursion",
+							"type": "default"
+						},
+						{
+							"key": "date",
+							"value": "2022-10-05",
+							"type": "default"
+						},
+						{
+							"key": "city",
+							"value": "faisalabad",
+							"type": "default"
+						},
+						{
+							"key": "description",
+							"value": "karahi bolt",
+							"type": "default"
+						},
+						{
+							"key": "lat",
+							"value": "24.675965",
+							"type": "default"
+						},
+						{
+							"key": "lng",
+							"value": "123.6757",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/excursion/createexcursion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"excursion",
+						"createexcursion"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

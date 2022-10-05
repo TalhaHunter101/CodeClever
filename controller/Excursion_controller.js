@@ -126,40 +126,88 @@ exports.getexcursion = async (req, res, next) => {
                     return;
                 }
 
-                console.log("I am valid lat and long for search")
-                const myDistance = 50000; // e.g. 10 kilometres
-                Excursion.findAll({
-                    attributes: {
-                        include: [
-                            [
-                                Sequelize.fn(
-                                    'ST_Distance',
-                                    Sequelize.col('Path'),
-                                    Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat)
-                                ),
-                                'distance'
+                // console.log("I am valid lat and long for search")
+                const myDistance = 10000; // e.g. 10 kilometres
+
+
+                if (req.body.city) {
+                    Excursion.findAll({
+                        attributes: {
+                            include: [
+                                [
+                                    Sequelize.fn(
+                                        'ST_Distance',
+                                        Sequelize.col('Path'),
+                                        // Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat)
+                                        Sequelize.fn('ST_SetSRID', Sequelize.fn('ST_MakePoint', req.body.lat, req.body.lng), 4326)
+                                    ),
+                                    'distance'
+                                ]
                             ]
-                        ]
-                    },
-                    where: Sequelize.where(
-                        Sequelize.fn(
-                            'ST_DWithin',
-                            Sequelize.col('Path'),
-                            Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat),
-                            myDistance
+                        },
+                        where: Sequelize.where(
+                            Excursion.rawAttributes.City, Op.eq, req.body.city,
+                            Sequelize.fn(
+                                'ST_DWithin',
+                                Sequelize.col('Path'),
+                                // Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat),
+                                Sequelize.fn('ST_SetSRID', Sequelize.fn('ST_MakePoint', req.body.lat, req.body.lng), 4326),
+                                myDistance
+                            ),
+                            true
                         ),
-                        true
-                    ),
-                    order: Sequelize.literal('distance ASC')
-                }).then(response => {
-                    res.json({
-                        Statuscode: 200,
-                        Message: "::Excursion Data with location parameters radius ::",
-                        Data: response
-                    })
-                }).catch((error) => {
-                    console.error(`${error}`);
-                });
+                        order: Sequelize.literal('distance ASC')
+                    }).then(response => {
+                        res.json({
+                            Statuscode: 200,
+                            Message: "::Excursion Data with City & location parameters ::",
+                            Data: response
+                        })
+                    }).catch((error) => {
+                        console.error(`${error}`);
+                    });
+                    return;
+                }
+                else {
+                    Excursion.findAll({
+                        attributes: {
+                            include: [
+                                [
+                                    Sequelize.fn(
+                                        'ST_Distance',
+                                        Sequelize.col('Path'),
+                                        // Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat)
+                                        Sequelize.fn('ST_SetSRID', Sequelize.fn('ST_MakePoint', req.body.lat, req.body.lng), 4326)
+                                    ),
+                                    'distance'
+                                ]
+                            ]
+                        },
+                        where: Sequelize.where(
+                            // Excursion.rawAttributes.City, Op.eq, req.body.city,
+                            Sequelize.fn(
+                                'ST_DWithin',
+                                Sequelize.col('Path'),
+                                // Sequelize.fn('ST_MakePoint', req.body.lng, req.body.lat),
+                                Sequelize.fn('ST_SetSRID', Sequelize.fn('ST_MakePoint', req.body.lat, req.body.lng), 4326),
+                                myDistance
+                            ),
+                            true
+                        ),
+                        order: Sequelize.literal('distance ASC')
+                    }).then(response => {
+                        res.json({
+                            Statuscode: 200,
+                            Message: "::Excursion Data with Location parameters::",
+                            Data: response
+                        })
+                    }).catch((error) => {
+                        console.error(`${error}`);
+                    });
+                    return;
+                }
+
+
 
             }
             // else {
@@ -176,8 +224,6 @@ exports.getexcursion = async (req, res, next) => {
                     }
                 })
             }
-
-
             Excursion.findAll({ where }).then(response => {
                 res.json({
                     Statuscode: 200,
