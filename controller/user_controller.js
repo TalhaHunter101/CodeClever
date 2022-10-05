@@ -22,8 +22,9 @@ app.use(express.json());
 
 
 exports.signup = async function (req, res) {
+
     if (req.body.name == "" || req.body.name == undefined) {
-        res.status(400).json({ Message: "Missing Full Name: try Again" });
+        res.status(400).json({ Message: "Missing Name: try Again" });
         return;
     } else if (req.body.email == "" || req.body.email == undefined) {
         res.status(400).json({ Message: "Missing Email:: Try again" });
@@ -40,16 +41,26 @@ exports.signup = async function (req, res) {
         return;
     }
     else {
-        await User.findOne({
+
+        const salt = await bcrypt.genSalt(10);
+        const hashPass = await bcrypt.hash(req.body.password, salt);
+
+        // console.log(hashPass)
+        User.findOne({
             where: {
                 email: req.body.email
             }
         }).then(resp => {
             if (!resp) {
-                const salt = await bcrypt.genSalt(10);
+                console.log(req.body)
                 // now we set user password to hashed password
-                const hashPass = await bcrypt.hash(req.body.password, salt);
-                await User.create({
+                // const salt = bcrypt.genSalt(10);
+                // const hashPass = bcrypt.hash(req.body.password.toString(), salt)
+
+                // const salt = await bcrypt.genSalt(10);
+                // now we set user password to hashed password
+                // const hashPass = bcrypt.hash(req.body.password, salt);
+                User.create({
                     name: req.body.name,
                     email: req.body.email,
                     password: hashPass,
@@ -63,10 +74,11 @@ exports.signup = async function (req, res) {
                             expiresIn: "5h",
                         }
                     );
-
-
-
-                    res.json({ Statuscode: 200, Message: "You are registered. --- Thanks" })
+                    res.json({
+                        Statuscode: 200,
+                        Message: "You are registered. --- Thanks",
+                        Token: token
+                    })
                 }).catch((error) => {
                     console.error(`Failed to create a new record : ${error}`);
                 });
@@ -168,23 +180,58 @@ exports.signup = async function (req, res) {
 
 exports.login = async function (req, res) {
     // console.log(req.body);
-    // if (req.body.email == "" || req.body.email == undefined) {
-    //     res.status(400).json({ Message: "Missing Email:: Try again" });
-    //     return;
-    // } else if (req.body.password == "" || req.body.password == undefined) {
-    //     res.status(400).json({ Message: "Missing Password:: Try again" });
-    //     return;
-    // } else if (req.body.password.length < 6) {
-    //     res
-    //         .status(411)
-    //         .json({ Message: "Password should be at least 6 characters" });
-    //     return;
-    // } else if (Evalid.validateEmailAddress(req.body.email) === -1) {
-    //     res.status(400).json({ Message: "Incorrect email :: Enter again" });
-    //     return;
-    // } else if (req.body.type == "" || req.body.type == undefined) {
-    //     res.status(400).json({ Message: "Type missing :: Enter again" });
-    //     return;
+    if (req.body.email == "" || req.body.email == undefined) {
+        res.status(400).json({ Message: "Missing Email:: Try again" });
+        return;
+    } else if (req.body.password == "" || req.body.password == undefined) {
+        res.status(400).json({ Message: "Missing Password:: Try again" });
+        return;
+    } else if (req.body.password.length < 6) {
+        res.status(411).json({ Message: "Password should be at least 6 characters" });
+        return;
+    } else if (Evalid.validateEmailAddress(req.body.email) === -1) {
+        res.status(400).json({ Message: "Incorrect email :: Enter again" });
+        return;
+    }
+    else {
+
+        await User.findOne({
+            where: {
+                email: req.body.email
+            }
+        }).then(resp => {
+            if (!resp) {
+                res.status(400).json({ Message: "You are not registerd, Signup First." });
+                return;
+            } else {
+                const validPassword = bcrypt.compare(req.body.password, resp.password);
+
+                if (validPassword) {
+
+                    const token = jwt.sign(
+                        { email: req.body.email },
+                        process.env.TOKEN_SECRET,
+                        {
+                            expiresIn: "5h",
+                        }
+                    );
+                    res.status(200).json({
+                        message: `Welcome :: ${resp.name}, You are loged in.`,
+                        Token: token
+                    });
+                } else {
+                    res.status(400).json({ error: "Invalid Credentials" });
+                }
+            }
+        });
+
+
+
+
+
+
+
+    }
     // } else if (req.body.type == "coustomer") {
     //     await coustomer.findOne({ email: req.body.email }).then((user) => {
     //         if (user) {
@@ -249,9 +296,9 @@ exports.login = async function (req, res) {
     //     });
     //     return;
     // }
-    res.status(200).json({
-        Message: "I am login",
-    });
+    // res.status(200).json({
+    //     Message: "I am login",
+    // });
 
 
 };

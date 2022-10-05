@@ -7,10 +7,14 @@ const verifyToken = (req, res, next) => {
         req.query.token ||
         req.headers["access-token"] ||
         req.headers["Token"];
-    if (authHeader.startsWith("Bearer ")) {
-        token = authHeader.substring(7, authHeader.length);
-    } else {
-        return res.status(401).json({ message: "Invalid Token provided" });
+    // console.log(token)
+
+    if (authHeader != undefined) {
+        if (authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7, authHeader.length);
+        } else {
+            return res.status(401).json({ Message: "Invalid Token provided" });
+        }
     }
     if (!token) {
         return res
@@ -21,8 +25,10 @@ const verifyToken = (req, res, next) => {
         const decoded = jwt.verify(token, config.TOKEN_SECRET);
         req.user = decoded;
     } catch (err) {
-        return res.status(401).json({ message: "Invalid Token" });
+        return res.status(401).json({ Message: "Invalid Token" });
     }
+   
+
     return next();
 };
 
