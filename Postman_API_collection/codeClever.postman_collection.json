@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b194b5c7-c942-4fac-a590-56f7650c6b41",
+		"_postman_id": "9a70e63c-f9c7-4e3b-b013-83b5b96d3c6f",
 		"name": "codeClever",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -105,23 +105,24 @@
 					"urlencoded": [
 						{
 							"key": "city",
-							"value": "Larkana",
+							"value": "Lahore",
+							"type": "default"
+						},
+						{
+							"key": "lat",
+							"value": "31.4",
 							"type": "default",
 							"disabled": true
 						},
 						{
-							"key": "lat",
-							"value": "24.675965",
-							"type": "default"
-						},
-						{
 							"key": "lng",
-							"value": "123.6757",
-							"type": "default"
+							"value": "74.36",
+							"type": "default",
+							"disabled": true
 						},
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhQGdtYWlsLmNvbSIsImlhdCI6MTY2NDk2NTkwMywiZXhwIjoxNjY0OTgzOTAzfQ.Pa7zA5gyx3S4VxkoVQFFIOLATQoalLSlWO8TQIHMUbE",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhMUBnbWFpbC5jb20iLCJpYXQiOjE2NjUwODQ0ODgsImV4cCI6MTY2NTEwMjQ4OH0.H5oUEyw2r38AYJ33WfwlQwGMC00S8Y_UcFHVvd4bDBg",
 							"type": "default"
 						}
 					]
@@ -161,12 +162,12 @@
 					"urlencoded": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhQGdtYWlsLmNvbSIsImlhdCI6MTY2NDk2NTkwMywiZXhwIjoxNjY0OTgzOTAzfQ.Pa7zA5gyx3S4VxkoVQFFIOLATQoalLSlWO8TQIHMUbE",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFscGhhMUBnbWFpbC5jb20iLCJpYXQiOjE2NjUwODQ0ODgsImV4cCI6MTY2NTEwMjQ4OH0.H5oUEyw2r38AYJ33WfwlQwGMC00S8Y_UcFHVvd4bDBg",
 							"type": "default"
 						},
 						{
 							"key": "name",
-							"value": "My 3rd excursion",
+							"value": "My 1st excursion2",
 							"type": "default"
 						},
 						{
@@ -176,7 +177,7 @@
 						},
 						{
 							"key": "city",
-							"value": "faisalabad",
+							"value": "Lahore",
 							"type": "default"
 						},
 						{
@@ -186,12 +187,12 @@
 						},
 						{
 							"key": "lat",
-							"value": "24.675965",
+							"value": "31.48801509137582",
 							"type": "default"
 						},
 						{
 							"key": "lng",
-							"value": "123.6757",
+							"value": " 74.36911858391436",
 							"type": "default"
 						}
 					]
