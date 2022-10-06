@@ -49,14 +49,7 @@ exports.signup = async function (req, res) {
     })
       .then((resp) => {
         if (!resp) {
-          console.log(req.body);
-          // now we set user password to hashed password
-          // const salt = bcrypt.genSalt(10);
-          // const hashPass = bcrypt.hash(req.body.password.toString(), salt)
-
-          // const salt = await bcrypt.genSalt(10);
-          // now we set user password to hashed password
-          // const hashPass = bcrypt.hash(req.body.password, salt);
+          //   console.log(req.body);
           User.create({
             name: req.body.name,
             email: req.body.email,
@@ -90,89 +83,6 @@ exports.signup = async function (req, res) {
         console.error("Failed to retrieve data : ", error);
       });
   }
-  // } else if (req.body.type == "" || req.body.type == undefined) {
-  //     res.status(400).json({ Message: "Type missing :: Enter again" });
-  //     return;
-  // } else if (req.body.type == "coustomer") {
-  //     await coustomer.findOne({ email: req.body.email }).then((user) => {
-  //         if (user) {
-  //             // user already present
-  //             return res
-  //                 .status(409)
-  //                 .json({ Message: "You are already registered ..." });
-  //         } else {
-  //             // creating new
-  //             let NewUser = new coustomer({
-  //                 fullname: req.body.fullname,
-  //                 email: req.body.email,
-  //                 password: req.body.password,
-  //             });
-  //             const emil = req.body.email;
-  //             const U_type = req.body.type;
-  //             const token = jwt.sign(
-  //                 { user_id: NewUser._id, emil, U_type },
-  //                 process.env.TOKEN_SECRET,
-  //                 {
-  //                     expiresIn: "5h",
-  //                 }
-  //             );
-  //             NewUser.save()
-  //                 .then((events) => {
-  //                     res.status(200).json({
-  //                         Message: `Coustomer User Registered`,
-  //                         Token: `${token}`,
-  //                     });
-  //                 })
-  //                 .catch((err) => {
-  //                     console.log(err);
-  //                     res.end();
-  //                 });
-  //         }
-  //     });
-  // } else if (req.body.type == "admin") {
-  //     await admin.findOne({ email: req.body.email }).then((user) => {
-  //         if (user) {
-  //             // user already present
-  //             return res
-  //                 .status(409)
-  //                 .json({ Message: "You are already registered ..." });
-  //         } else {
-  //             // creating new
-  //             let NewUser = new admin({
-  //                 fullname: req.body.fullname,
-  //                 email: req.body.email,
-  //                 password: req.body.password,
-  //             });
-  //             const emil = req.body.email;
-  //             const U_type = req.body.type;
-  //             const token = jwt.sign(
-  //                 { user_id: NewUser._id, emil, U_type },
-  //                 process.env.TOKEN_SECRET,
-  //                 {
-  //                     expiresIn: "5h",
-  //                 }
-  //             );
-  //             NewUser.save()
-  //                 .then((events) => {
-  //                     res.status(200).json({
-  //                         Message: `Admin user registered`,
-  //                         Token: `${token}`,
-  //                     });
-  //                 })
-  //                 .catch((err) => {
-  //                     console.log(err);
-  //                     res.end();
-  //                 });
-  //         }
-  //     });
-  // } else {
-  //     res.status(400).json({
-  //         Message: "Type should be 'admin' or 'coustomer' (lowercase)",
-  //     });
-  //     return;
-  // }
-
-  // res.send("I am signup")
 };
 
 exports.login = async function (req, res) {
@@ -223,71 +133,4 @@ exports.login = async function (req, res) {
       }
     });
   }
-  // } else if (req.body.type == "coustomer") {
-  //     await coustomer.findOne({ email: req.body.email }).then((user) => {
-  //         if (user) {
-  //             // user Found in record
-  //             const verifypass = bcrypt.compareSync(req.body.password, user.password);
-  //             if (verifypass == true) {
-  //                 const emil = req.body.email;
-  //                 const U_type = req.body.type;
-  //                 const token = jwt.sign(
-  //                     { user_id: user._id, emil, U_type },
-  //                     process.env.TOKEN_SECRET,
-  //                     {
-  //                         expiresIn: "5h",
-  //                     }
-  //                 );
-  //                 res.status(200).json({
-  //                     Message: `Login succesfull :: Welcome ${user.fullname} `,
-  //                     Token: `${token}`,
-  //                 });
-  //             } else {
-  //                 res.status(400).json({
-  //                     Message: `Incorrect Credentials`,
-  //                 });
-  //             }
-  //         } else {
-  //             res.status(400).json({ Message: "You are not our registered user" });
-  //             return;
-  //         }
-  //     });
-  // } else if (req.body.type == "admin") {
-  //     await admin.findOne({ email: req.body.email }).then((user) => {
-  //         if (user) {
-  //             // user Found in record
-  //             const verifypass = bcrypt.compareSync(req.body.password, user.password);
-  //             if (verifypass == true) {
-  //                 const emil = req.body.email;
-  //                 const U_type = req.body.type;
-  //                 const token = jwt.sign(
-  //                     { user_id: user._id, emil, U_type },
-  //                     process.env.TOKEN_SECRET,
-  //                     {
-  //                         expiresIn: "5h",
-  //                     }
-  //                 );
-  //                 res.status(200).json({
-  //                     Message: `Login succesfull :: Welcome ${user.fullname} `,
-  //                     Token: `${token}`,
-  //                 });
-  //             } else {
-  //                 res.status(400).json({
-  //                     Message: `Incorrect Credentials`,
-  //                 });
-  //             }
-  //         } else {
-  //             res.status(400).json({ Message: "You are not our registered user" });
-  //             return;
-  //         }
-  //     });
-  // } else {
-  //     res.status(400).json({
-  //         Message: "Type should be 'admin' or 'coustomer' (lowercase)",
-  //     });
-  //     return;
-  // }
-  // res.status(200).json({
-  //     Message: "I am login",
-  // });
 };
