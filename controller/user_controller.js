@@ -61,7 +61,7 @@ exports.signup = async function (req, res) {
             name: req.body.name,
             email: req.body.email,
             password: hashPass,
-            role: "admin",
+            role: "user",
           })
             .then((response) => {
               // console.log(response)
